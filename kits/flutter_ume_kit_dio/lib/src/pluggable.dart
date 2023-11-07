@@ -15,7 +15,8 @@ import 'widgets/pluggable_state.dart';
 /// Implement a [Pluggable] to integrate with UME.
 class DioInspector extends StatefulWidget implements Pluggable {
   DioInspector({Key? key, required this.dio}) : super(key: key) {
-    dio.interceptors.add(UMEDioInterceptor());
+    ///搞到最前面.保证打印最原始的 Response
+    dio.interceptors.insert(0, UMEDioInterceptor());
   }
 
   final Dio dio;
