@@ -41,7 +41,7 @@ class UMEDioInterceptor extends Interceptor {
     } else {
       response = err.response!;
     }
-    err.response!.requestOptions.extra[DIO_EXTRA_END_TIME] = _timestamp;
+    response.requestOptions.extra[DIO_EXTRA_END_TIME] = _timestamp;
     InspectorInstance.httpContainer.addRequest(response);
     super.onError(err, handler);
   }
