@@ -233,7 +233,9 @@ class _ResponseCardState extends State<_ResponseCard> {
     final Map<String, List<String>> map = _request.headers.map(
       (key, value) => MapEntry(
         key,
-        value is Iterable ? value.map((v) => v.toString()).toList() : [value.toString()],
+        value is Iterable
+            ? value.map((v) => v.toString()).toList()
+            : [value.toString()],
       ),
     );
     final Headers headers = Headers.fromMap(map);
@@ -245,10 +247,16 @@ class _ResponseCardState extends State<_ResponseCard> {
 
   /// Data for the [_request].
   String? get _requestDataBuilder {
+    String? _requestString;
     if (_request.data is Map) {
-      return _encoder.convert(_request.data);
+      _requestString = _encoder.convert(_request.data);
+    } else {
+      _requestString = _request.data?.toString() ?? '';
     }
-    return _request.data?.toString();
+
+    String _extraString = _requestString = _encoder.convert(_request.extra);
+
+    return '${_requestString} \n origin: \n ${_extraString}';
   }
 
   /// Data for the [_response].
